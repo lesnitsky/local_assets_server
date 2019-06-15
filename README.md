@@ -77,7 +77,7 @@ class _HomeState extends State<Home> {
             ? WebView(
                 javascriptMode: JavascriptMode.unrestricted,
                 debuggingEnabled: true,
-                initialUrl: 'http://127.0.0.1:42152',
+                initialUrl: 'http://127.0.0.1:9090',
               )
             : Center(child: CircularProgressIndicator()),
       ),
