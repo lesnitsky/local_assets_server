@@ -22,7 +22,6 @@ dependencies:
 
   local_assets_server:
     path: ../
-
   webview_flutter: ^0.3.9+1
 
   # The following adds the Cupertino Icons font to your application.
