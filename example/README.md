@@ -1,16 +1,15 @@
-# example
+# Flutter WebView demo
 
-A new Flutter project.
+A demo app which shows how to embed webview with local assets into your flutter application
 
-## Getting Started
+![GitHub stars](https://img.shields.io/github/stars/lesnitsky/flutter_local_assets_server.svg?style=social)
+![Twitter Follow](https://img.shields.io/twitter/follow/lesnitsky_a.svg?label=Follow%20me&style=social)
 
-This project is a starting point for a Flutter application.
+## Used plugins
 
-A few resources to get you started if this is your first Flutter project:
+- [webview_flutter](https://pub.dev/packages/webview_flutter)
+- [local_assets_server](https://pub.dev/packages/local_assets_server)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Screenshot
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+![Screenshot](https://raw.githubusercontent.com/lesnitsky/flutter_local_assets_server/master/example/screenshot.png)
