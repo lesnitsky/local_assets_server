@@ -21,28 +21,33 @@ class LocalAssetsServer {
   /// Server address
   InternetAddress address;
 
-  /// Server port
+  /// Optional server port (note: might be already taken)
+  /// Defaults to 0 (binds server to a random free port)
   int port;
 
   /// Assets base path
   String assetsBasePath;
 
+  HttpServer _server;
+
   LocalAssetsServer({
     @required this.address,
-    @required this.port,
     @required this.assetsBasePath,
+    this.port = 0,
   }) {
     assert(address != null);
     assert(port != null);
     assert(assetsBasePath != null);
   }
 
+  /// Actual port server is listening on
+  get boundPort => _server.port;
+
   /// Starts server
   Future<InternetAddress> serve() async {
-    final server = await HttpServer.bind(this.address, this.port);
-    server.listen(_handleReq);
-
-    return server.address;
+    _server = await HttpServer.bind(this.address, this.port);
+    _server.listen(_handleReq);
+    return _server.address;
   }
 
   _handleReq(HttpRequest request) async {

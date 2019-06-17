@@ -1,36 +1,3 @@
-# local_assets_server
-
-HTTP Server which serves local assets
-
-![GitHub stars](https://img.shields.io/github/stars/lesnitsky/flutter_local_assets_server.svg?style=social)
-![Twitter Follow](https://img.shields.io/twitter/follow/lesnitsky_a.svg?label=Follow%20me&style=social)
-
-## Installation
-
-```yml
-dependencies:
-  local_assets_server: ^1.0.1
-```
-
-```sh
-flutter packages get
-```
-
-## Usage
-
-Check out [complete example here](./example)
-
-`pubspec.yaml`
-
-```yml
-flutter:
-  assets:
-    - web/
-```
-
-`main.dart`
-
-```dart
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -119,9 +86,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
-```
-
-## LICENSE
-
-MIT
