@@ -44,8 +44,8 @@ class LocalAssetsServer {
   get boundPort => _server.port;
 
   /// Starts server
-  Future<InternetAddress> serve() async {
-    _server = await HttpServer.bind(this.address, this.port);
+  Future<InternetAddress> serve({bool shared = false}) async {
+    _server = await HttpServer.bind(this.address, this.port, shared: shared);
     _server.listen(_handleReq);
     return _server.address;
   }
