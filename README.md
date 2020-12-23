@@ -3,13 +3,13 @@
 HTTP Server which serves local assets
 
 ![GitHub stars](https://img.shields.io/github/stars/lesnitsky/flutter_local_assets_server.svg?style=social)
-![Twitter Follow](https://img.shields.io/twitter/follow/lesnitsky_a.svg?label=Follow%20me&style=social)
+![Twitter Follow](https://img.shields.io/twitter/follow/lesnitsky_dev.svg?label=Follow%20me&style=social)
 
 ## Installation
 
 ```yml
 dependencies:
-  local_assets_server: ^1.0.1
+  local_assets_server: ^1.0.3
 ```
 
 ```sh
