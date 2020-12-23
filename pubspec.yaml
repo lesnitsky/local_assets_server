@@ -1,7 +1,6 @@
 name: local_assets_server
 description: HTTP Server which serves local assets
-version: 1.0.2+5
-author: Andrei Lesnitsky <andrei.lesnitsky@gmail.com>
+version: 1.0.3+6
 homepage: https://github.com/lesnitsky/flutter_local_assets_server
 
 environment:

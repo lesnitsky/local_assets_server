@@ -28,16 +28,24 @@ class LocalAssetsServer {
   /// Assets base path
   String assetsBasePath;
 
+  Directory _rootDir;
   HttpServer _server;
 
   LocalAssetsServer({
     @required this.address,
     @required this.assetsBasePath,
+
+    /// Pass this argument if you want to serve assets from some directory, instead of app bundle
+    /// ```dart
+    /// import 'package:path_provider/path_provider.dart';
+    /// ```
+    Directory rootDir,
     this.port = 0,
   }) {
     assert(address != null);
     assert(port != null);
     assert(assetsBasePath != null);
+    this._rootDir = rootDir;
   }
 
   /// Actual port server is listening on
@@ -75,10 +83,16 @@ class LocalAssetsServer {
   Future<ByteData> _loadAsset(String path) async {
     if (AssetsCache.assets.containsKey(path)) {
       return AssetsCache.assets[path];
-    } else {
-      ByteData data = await rootBundle.load(join(assetsBasePath, path));
-      AssetsCache.assets[path] = data;
-      return data;
     }
+
+    if (_rootDir != null) {
+      print(join(_rootDir.path, path));
+      final f = File(join(_rootDir.path, path));
+      return (await f.readAsBytes()).buffer.asByteData();
+    }
+
+    ByteData data = await rootBundle.load(join(assetsBasePath, path));
+    AssetsCache.assets[path] = data;
+    return data;
   }
 }
