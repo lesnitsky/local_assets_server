@@ -57,6 +57,8 @@ class LocalAssetsServer {
     _server.listen(_handleReq);
     return _server.address;
   }
+  
+  Future close() => _server?.close();
 
   _handleReq(HttpRequest request) async {
     String path = request.requestedUri.path.replaceFirst('/', '');
