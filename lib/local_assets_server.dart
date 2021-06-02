@@ -1,9 +1,44 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
 import 'package:mime/mime.dart';
 
 import 'package:flutter/services.dart';
+
+abstract class Logger {
+  void logOk(String path, String contentType);
+  void logNotFound(String path, String contentType);
+}
+
+// Pass an instance of DebugLogger to view logs only in dev builds
+class DebugLogger implements Logger {
+  const DebugLogger();
+  _log(String path, String contentType, int code) {
+    if (!kReleaseMode) {
+      debugPrint('GET $path – $code; mime: $contentType');
+    }
+  }
+
+  logOk(String path, String contentType) {
+    _log(path, contentType, 200);
+  }
+
+  logNotFound(String path, String contentType) {
+    _log(path, contentType, 404);
+  }
+}
+
+// Default logger which does nothing. Use DebugLogger if you want to view access logs in console
+class SilentLogger implements Logger {
+  const SilentLogger();
+
+  @override
+  logNotFound(String path, String contentType) {}
+
+  @override
+  logOk(String path, String contentType) {}
+}
 
 class AssetsCache {
   /// Assets cache
@@ -29,6 +64,8 @@ class LocalAssetsServer {
   final Directory? _rootDir;
   HttpServer? _server;
 
+  final Logger logger;
+
   LocalAssetsServer({
     required this.address,
     required this.assetsBasePath,
@@ -36,6 +73,7 @@ class LocalAssetsServer {
     Directory? rootDir,
     // TCP port server will be listening on. Will choose an available port automatically if no port was passed
     this.port = 0,
+    this.logger = const SilentLogger(),
   }) : this._rootDir = rootDir;
 
   /// Actual port server is listening on
@@ -58,18 +96,21 @@ class LocalAssetsServer {
       path = 'index.html';
     }
 
+    final name = basename(path);
+    final mime = lookupMimeType(name);
+
     try {
       final data = await _loadAsset(path);
-      final name = basename(path);
-      final mime = lookupMimeType(name);
 
       request.response.headers.add('Content-Type', '$mime; charset=utf-8');
       request.response.add(data.buffer.asUint8List());
 
       request.response.close();
+      logger.logOk(path, mime.toString());
     } catch (err) {
       request.response.statusCode = 404;
       request.response.close();
+      logger.logNotFound(path, mime.toString());
     }
   }
 

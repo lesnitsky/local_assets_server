@@ -48,6 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final server = new LocalAssetsServer(
       address: InternetAddress.loopbackIPv4,
       assetsBasePath: 'web',
+      logger: DebugLogger(),
     );
 
     final address = await server.serve();
