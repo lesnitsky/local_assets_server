@@ -1,3 +1,7 @@
+## 2.0.0+8
+
+- Null-safety
+
 ## 1.0.3+6
 
 - Allow to serve assets from fs directory

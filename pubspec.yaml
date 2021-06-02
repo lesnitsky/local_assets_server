@@ -1,19 +1,19 @@
 name: local_assets_server
 description: HTTP Server which serves local assets
-version: 1.0.3+7
+version: 2.0.0+8
 homepage: https://github.com/lesnitsky/flutter_local_assets_server
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  path: ^1.6.2
-  mime: ^0.9.6+3
+  mime: ^1.0.0
+  path: ^1.8.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-flutter:
+flutter: null

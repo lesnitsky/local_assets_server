@@ -20,9 +20,9 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
   final String title;
+
+  MyHomePage({Key? key, required this.title}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -30,9 +30,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool isListening = false;
-  String address;
-  int port;
-  WebViewController controller;
+  String? address;
+  int? port;
+  WebViewController? controller;
 
   void _incrementCounter() {
     controller?.evaluateJavascript('window.increment()');
@@ -41,7 +41,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   initState() {
     _initServer();
-
     super.initState();
   }
 
@@ -55,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     setState(() {
       this.address = address.address;
-      port = server.boundPort;
+      port = server.boundPort!;
       isListening = true;
     });
   }
@@ -71,13 +70,11 @@ class _MyHomePageState extends State<MyHomePage> {
               debuggingEnabled: true,
               initialUrl: 'http://$address:$port',
               javascriptMode: JavascriptMode.unrestricted,
-              onWebViewCreated: (WebViewController controller) {
-                this.controller = controller;
+              onWebViewCreated: (c) {
+                controller = c;
               },
             )
-          : Center(
-              child: CircularProgressIndicator(),
-            ),
+          : Center(child: CircularProgressIndicator()),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
