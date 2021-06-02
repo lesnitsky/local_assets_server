@@ -89,6 +89,11 @@ class LocalAssetsServer {
     return s.address;
   }
 
+  Future<void> stop() async {
+    AssetsCache.clear();
+    await _server.close();
+  }
+
   _handleReq(HttpRequest request) async {
     String path = request.requestedUri.path.replaceFirst('/', '');
 
