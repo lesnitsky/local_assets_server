@@ -1,6 +1,6 @@
 name: local_assets_server
 description: HTTP Server which serves local assets
-version: 2.0.2+11
+version: 2.0.2+12
 homepage: https://github.com/lesnitsky/local_assets_server
 
 environment:
