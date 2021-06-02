@@ -1,34 +1,21 @@
 # local_assets_server
 
-HTTP Server which serves local assets
+[![lesnitsky.dev](https://lesnitsky.dev/shield.svg?hash=120246)](https://lesnitsky.dev?utm_source=local_assets_server)
+[![GitHub stars](https://img.shields.io/github/stars/lesnitsky/local_assets_server.svg?style=social)](https://github.com/lesnitsky/local_assets_server)
+[![Twitter Follow](https://img.shields.io/twitter/follow/lesnitsky_dev.svg?label=Follow%20me&style=social)](https://twitter.com/lesnitsky_dev)
 
-![GitHub stars](https://img.shields.io/github/stars/lesnitsky/flutter_local_assets_server.svg?style=social)
-![Twitter Follow](https://img.shields.io/twitter/follow/lesnitsky_dev.svg?label=Follow%20me&style=social)
+HTTP Server which serves local assets
 
 ## Installation
 
-```yml
+pubspec.yaml:
+
+```yaml
 dependencies:
-  local_assets_server: ^1.0.3
+  local_assets_server: ^2.0.2+10
 ```
 
-```sh
-flutter packages get
-```
-
-## Usage
-
-Check out [complete example here](./example)
-
-`pubspec.yaml`
-
-```yml
-flutter:
-  assets:
-    - web/
-```
-
-`main.dart`
+## Example
 
 ```dart
 import 'dart:io';
@@ -53,9 +40,9 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
   final String title;
+
+  MyHomePage({Key? key, required this.title}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -63,9 +50,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool isListening = false;
-  String address;
-  int port;
-  WebViewController controller;
+  String? address;
+  int? port;
+  WebViewController? controller;
 
   void _incrementCounter() {
     controller?.evaluateJavascript('window.increment()');
@@ -74,7 +61,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   initState() {
     _initServer();
-
     super.initState();
   }
 
@@ -82,13 +68,14 @@ class _MyHomePageState extends State<MyHomePage> {
     final server = new LocalAssetsServer(
       address: InternetAddress.loopbackIPv4,
       assetsBasePath: 'web',
+      logger: DebugLogger(),
     );
 
     final address = await server.serve();
 
     setState(() {
       this.address = address.address;
-      port = server.boundPort;
+      port = server.boundPort!;
       isListening = true;
     });
   }
@@ -104,13 +91,11 @@ class _MyHomePageState extends State<MyHomePage> {
               debuggingEnabled: true,
               initialUrl: 'http://$address:$port',
               javascriptMode: JavascriptMode.unrestricted,
-              onWebViewCreated: (WebViewController controller) {
-                this.controller = controller;
+              onWebViewCreated: (c) {
+                controller = c;
               },
             )
-          : Center(
-              child: CircularProgressIndicator(),
-            ),
+          : Center(child: CircularProgressIndicator()),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
@@ -122,6 +107,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
 ```
 
-## LICENSE
+## License
 
 MIT
