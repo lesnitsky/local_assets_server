@@ -91,7 +91,7 @@ class LocalAssetsServer {
 
   Future<void> stop() async {
     AssetsCache.clear();
-    await _server.close();
+    await _server?.close();
   }
 
   _handleReq(HttpRequest request) async {
